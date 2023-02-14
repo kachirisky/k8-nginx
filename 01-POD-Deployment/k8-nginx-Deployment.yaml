@@ -21,11 +21,11 @@ spec:
           containerPort: 80
         resources:
           limits:
-            cpu: 100m
-            memory: 128Mi
+            cpu: 10m
+            memory: 8Mi
           requests:
-            cpu: 100m
-            memory: 128Mi
+            cpu: 10m
+            memory: 8Mi
 # Uncomment this if you're using the dockerhub secret
 #      imagePullSecrets:
 #      - name: my-pull-secret
