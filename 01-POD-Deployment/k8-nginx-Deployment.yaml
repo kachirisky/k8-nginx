@@ -1,0 +1,31 @@
+### Basic Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kachirisky
+  name: k8-nginx
+spec:
+  selector:
+    matchLabels:
+      app: k8-nginx
+  template:
+    metadata:
+      labels:
+        app: k8-nginx
+    spec:
+      containers:
+      - image: ikachiriskys/k8-nginx
+        name: k8-nginx
+        ports:
+        - name: http
+          containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+# Uncomment this if you're using the dockerhub secret
+#      imagePullSecrets:
+#      - name: my-pull-secret
