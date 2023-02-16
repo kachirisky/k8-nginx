@@ -23,39 +23,4 @@ Notice the difference in how a POD YAML and a Deployment YAML are different
 
 
 
-* Optional Bunus: Deploy Fibunacci and break the cluster but first needs troubleshooting to start
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-with-sidecar
-  namespace: kachirisky
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: k8-nginx
-  template:
-    metadata:
-      labels:
-        app: k8-nginx
-    spec:
-      containers:
-      - name: k8-nginx
-        image: ikachiriskys/fibonacci
-        ports:
-        - containerPort: 80
-      - name: sidecar
-        image: alpine:latest
-        command: ["/bin/sh", "-c"]
-        args:
-          - |
-            apk update; apk add curl
-            for ((i=l;i<=1500;i++));
-            do echo -n $i-; curl http://34.135.255.147:8080/fibonacci -H "Content-Type: application/json" -d '{"number": 6}'; done
-
-
-
-
-Curl command to integrate:
-for ((i=l;i<=1500;i++)); do echo -n $i-; curl http://34.135.255.147:8080/fibonacci -H "Content-Type: application/json" -d '{"number": 6}'; done
+* Optional Bunus: Deploy Fibunacci and break the cluster but first needs troubleshooting to start 04-Fibonacci.yaml
