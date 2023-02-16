@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-sidecar
+  namespace: kachirisky
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8-nginx
+  template:
+    metadata:
+      labels:
+        app: k8-nginx
+    spec:
+      containers:
+      - name: k8-nginx
+        image: ikachiriskys/fibonaccis
+        ports:
+        - containerPort: 8081
+      - name: sidecar
+        image: alpine:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            apk update; apk add curl;
+            for ((i=l;i<=1500;i++)); do echo -n $i-; curl http://34.135.255.147:8080/fibonacci -H "Content-Type: application/json" -d '{"number": 6}';done
+## There's an error here to troubleshoot

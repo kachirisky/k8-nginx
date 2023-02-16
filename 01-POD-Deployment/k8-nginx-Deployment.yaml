@@ -5,6 +5,7 @@ metadata:
   namespace: kachirisky
   name: k8-nginx
 spec:
+  replicas: 6
   selector:
     matchLabels:
       app: k8-nginx
@@ -14,7 +15,7 @@ spec:
         app: k8-nginx
     spec:
       containers:
-      - image: ikachiriskys/k8-nginx
+      - image: ikachiriskys/k8-nginx:joe
         name: k8-nginx
         ports:
         - name: http
@@ -27,5 +28,5 @@ spec:
             cpu: 10m
             memory: 8Mi
 # Uncomment this if you're using the dockerhub secret
-#      imagePullSecrets:
-#      - name: my-pull-secret
+      imagePullSecrets:
+      - name: myregistrykey

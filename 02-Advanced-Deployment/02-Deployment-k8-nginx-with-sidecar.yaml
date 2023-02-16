@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-sidecar
+  namespace: kachirisky
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-with-sidecar
+  template:
+    metadata:
+      labels:
+        app: nginx-with-sidecar
+    spec:
+      containers:
+      - name: k8-nginx
+        image: ikachiriskys/k8-nginx:latest
+        ports:
+        - containerPort: 80
+      - name: sidecar
+        image: alpine:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            apk update; apk add curl
+            while true; do
+              curl localhost
+              sleep 5
+            done
